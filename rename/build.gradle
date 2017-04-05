@@ -1,0 +1,17 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+task run(type: JavaExec, dependsOn: 'classes') {
+    description '运行指定main函数的java'
+    classpath = sourceSets.main.runtimeClasspath
+    if(project.hasProperty('main')){
+        //注意修改包名
+        main = "com.example.${project.getProperty('main')}"
+    }
+    //在 terminal 中运行 gradlew run -Pmain=MyClass即可
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
